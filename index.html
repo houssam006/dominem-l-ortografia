@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOMINEM L'ORTOGRAFIA</title>
+
+
+    <style>
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            min-height: 100vh;
+            background: #F9DFD1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .container {
+            background: white;
+            width: 90%;
+            max-width: 750px;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(57, 83, 112, 0.25);
+        }
+
+
+        .logo {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+
+        h1 {
+            color: #395370;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+
+        h2 {
+            color: #395370;
+            margin-bottom: 25px;
+        }
+
+
+        p {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+
+        input {
+            width: 80%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #CDE4F1;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+
+        input:focus {
+            outline: none;
+            border-color: #395370;
+        }
+
+
+        button {
+            width: 90%;
+            padding: 16px;
+            margin: 8px;
+            border: none;
+            border-radius: 10px;
+            background: #395370;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background: #E06510;
+        }
+
+
+        .verde {
+            background: #E06510;
+        }
+
+
+        .verde:hover {
+            background: #395370;
+        }
+
+
+        .respuesta {
+            background: #CDE4F1;
+            color: #395370;
+            border: 2px solid #CDE4F1;
+        }
+
+
+        .respuesta:hover {
+            background: #F9DFD1;
+            border-color: #E06510;
+        }
+
+
+        #seleccioCurs,
+        #pantallaJoc,
+        #zonaProfessor,
+        #resultatsProfessor {
+            display: none;
+        }
+
+
+        #pregunta {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+
+
+        #resultat {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+
+        #puntuacio {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px;
+            color: #395370;
+        }
+
+
+        #errorProfessor {
+            color: #E06510;
+            font-weight: bold;
+            margin: 15px;
+        }
+
+
+        #llistaResultats {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        th,
+        td {
+            border: 1px solid #CDE4F1;
+            padding: 10px;
+        }
+
+
+        th {
+            background: #395370;
+            color: white;
+        }
+
+
+    </style>
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+
+    <!-- INICIO -->
+
+
+    <div class="container" id="pantallaPrincipal">
+
+
+        <div class="logo">
+            📚
+        </div>
+
+
+        <h1>DOMINEM L'ORTOGRAFIA</h1>
+
+
+        <p>
+            Aprèn català d'una manera divertida
+        </p>
+
+
+        <input
+            id="nomAlumne"
+            type="text"
+            placeholder="Escriu el teu nom"
+        >
+
+
+        <input
+            id="codiClasse"
+            type="text"
+            placeholder="Codi de classe"
+        >
+
+
+        <button
+            class="verde"
+            onclick="comencarJoc()"
+        >
+            COMENÇAR
+        </button>
+
+
+        <button
+            onclick="mostrarZonaProfessor()"
+        >
+            ZONA PROFESSOR
+        </button>
+
+
+    </div>
+
+
+
+
+    <!-- ZONA PROFESSOR -->
+
+
+    <div class="container" id="zonaProfessor">
+
+
+        <div class="logo">
+            👨‍🏫
+        </div>
+
+
+        <h1>Zona Professor</h1>
+
+
+        <p>
+            Introdueix el codi del professor
+        </p>
+
+
+        <input
+            id="codiProfessor"
+            type="password"
+            placeholder="Codi del professor"
+        >
+
+
+        <button
+            class="verde"
+            onclick="entrarProfessor()"
+        >
+            ENTRAR
+        </button>
+
+
+        <div id="errorProfessor"></div>
+
+
+        <button onclick="tornarInici()">
+            TORNAR
+        </button>
+
+
+    </div>
+
+
+
+
+    <!-- RESULTADOS PROFESOR -->
+
+
+    <div class="container" id="resultatsProfessor">
+
+
+        <div class="logo">
+            📊
+        </div>
+
+
+        <h1>Resultats dels alumnes</h1>
+
+
+        <input
+            id="codiClasseProfessor"
+            type="text"
+            placeholder="Codi de classe"
+        >
+
+
+        <button
+            class="verde"
+            onclick="carregarResultats()"
+        >
+            VEURE RESULTATS
+        </button>
+
+
+        <div id="llistaResultats">
+        </div>
+
+
+        <button onclick="tornarInici()">
+            TORNAR
+        </button>
+
+
+    </div>
+
+
+
+
+    <!-- SELECCIONAR CURSO -->
+
+
+    <div class="container" id="seleccioCurs">
+
+
+        <div class="logo">
+            🎮
+        </div>
+
+
+        <h1>DOMINEM L'ORTOGRAFIA</h1>
+
+
+        <h2>Tria el teu curs</h2>
+
+
+        <button onclick="seleccionarCurs(1)">
+            1r ESO
+        </button>
+
+
+        <button onclick="seleccionarCurs(2)">
+            2n ESO
+        </button>
+
+
+        <button onclick="seleccionarCurs(3)">
+            3r ESO
+        </button>
+
+
+        <button onclick="seleccionarCurs(4)">
+            4t ESO
+        </button>
+
+
+    </div>
+
+
+
+
+    <!-- JUEGO -->
+
+
+    <div class="container" id="pantallaJoc">
+
+
+        <div class="logo">
+            🎮
+        </div>
+
+
+        <h2 id="titolCurs">
+            Pregunta
+        </h2>
+
+
+        <p id="pregunta">
+            Carregant pregunta...
+        </p>
+
+
+        <button
+            class="respuesta"
+            id="resposta1"
+            onclick="comprovarResposta(1)"
+        >
+            A)
+        </button>
+
+
+        <button
+            class="respuesta"
+            id="resposta2"
+            onclick="comprovarResposta(2)"
+        >
+            B)
+        </button>
+
+
+        <button
+            class="respuesta"
+            id="resposta3"
+            onclick="comprovarResposta(3)"
+        >
+            C)
+        </button>
+
+
+        <button
+            class="respuesta"
+            id="resposta4"
+            onclick="comprovarResposta(4)"
+        >
+            D)
+        </button>
+
+
+        <div id="resultat">
+        </div>
+
+
+        <div id="puntuacio">
+            Punts: 0
+        </div>
+
+
+        <button
+            id="seguent"
+            onclick="seguentPregunta()"
+        >
+            SEGÜENT
+        </button>
+
+
+    </div>
+
+
+
+
+    <script type="module" src="./js/script.js?v=5"></script>
+
+
+</body>
+
+
+</html>
+
